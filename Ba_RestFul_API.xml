@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+	<assembly>
+		<name>Ba_RestFul_API</name>
+	</assembly>
+	<members>
+		<member name="M:Ba_RestFul_API.Controllers.CategoryController.GetCategory">
+			<summary>
+				Get list of categories
+			</summary>
+			<returns></returns>
+		</member>
+		<member name="M:Ba_RestFul_API.Controllers.CategoryController.GetCategory(System.Int32)">
+			<summary>
+				Get individual category
+			</summary>
+			<param name="id">The Id of category</param>
+			<returns></returns>
+		</member>
+		<member name="M:Ba_RestFul_API.Controllers.CategoryController.CreateCategory(Ba_RestFul_API.Models.DTOs.CreateCategoryDTO)">
+			<summary>
+				Add the new category
+			</summary>
+			<param name="categoryDto">In this process, Category Name and Description does requiert fields</param>
+			<returns></returns>
+		</member>
+		<member name="M:Ba_RestFul_API.Controllers.CategoryController.UpdateCategory(System.Int32,Ba_RestFul_API.Models.DTOs.UpdateCategoryDTO)">
+			<summary>
+				Update Category
+			</summary>
+			<param name="id">You must to type into field a id information</param>
+			<param name="categoryDto">In this process, Category Name and Description does requiert fields</param>
+			<returns></returns>
+		</member>
+		<member name="M:Ba_RestFul_API.Controllers.CategoryController.DeleteCategory(System.Int32)">
+			<summary>
+				Delete the category
+			</summary>
+			<param name="id">Category Id</param>
+			<returns></returns>
+		</member>
+	</members>
+</doc>

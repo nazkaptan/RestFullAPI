@@ -1,0 +1,174 @@
+﻿//Daha Sonra ise Boş bir Web Api Controller açılarak ApiController ne olduğundan Ve App_Start
+dosyası altındaki WebApiConfig.cs route mekanizmasından bahsedilecek
+
+ config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+);
+
+//default route da controller tanımlaması yapılmadığına dikkat çekilecek
+
+
+//Aynı zamanda sunucu client request response gibi mantıklar tahta kullanılarak ve şekiller çizilerek de anlatılmalıdır.
+
+//HomeControllerdaki yazılanlar aşağıda da vardır.
+
+HTTP protokolü ile XML veya Json'a serileştirilmiş veri gönderip alarak iki uzak cihaz arasındaki iletişimi sağlayan bir haberleşme yöntemidir. XML veya Json olması sayesinde değişik platformlar ve programlama dilleri arasında haberleşme sağlanabilir.(Platform bağımsız) (interoperability)
+
+        JAVA ile yazılmış bir program C# ile yazılmış bir program arasında veri alışverişi olabilir.
+
+        REST (Representational State Transfer)
+
+        REST client-server iletişimiyle ilgili bir mimari. HTTP protokol'ü ile paralel olarak gelişmiş olmasının yani sıra bugün en çok hepimizin aşina olduğu World Wide Web sisteminde kullanılıyor. REST mimarisini kullanan servislere genel olarak RESTful servis deniyor.Ana fikir aslında client-server arasında ki veri alışverişini SOAP, RPC gibi kompleks mimarilerle sağlamak yerine, HTTP protokolü üzerinden sağlamak.
+        REST mimarisindeki önemli noktalardan biride her HTTP request'inde yapılması istenilen işlemin HTTP Methodlarıyla (Verb) ifade edilmesi. POST,PUT,DELETE,GET gibi, böylece proxy ihtiyacı ortadan kalkmış oluyor ayrıca platform bağımsız yapılara elverişli hale geliyor.
+
+        Rest servisler ;
+        
+        Platform bağımsızlar. (Client'ın Windows, Server'ın Linux olmasının hiç bir önemi yok)
+        Dil  bağımsızlar .
+        HTTP üzerinden çalışıyorlar.
+        Esnekler ve çok kolay genişletilebilirler.
+        Ayrıca belli kısıtlarıda var ; 
+
+        Kısıtları
+
+        Clint-Server Mimarisi : Burada anlatılmak istenilen aslında Separation of Concerns prensibi. Client'ın Server tarafında ki veri kaynağı hakkında hiç birşey bilmemesi, Server'ın da doğru istekler geldiği sürece doğru yanıtı vermesi. Client ile Server'ın birbirlerinden bağımsız olması . Amaç aslında platform bağımsız çalışmayı ve scaleability'i arttırmak. Ayrıca aralarında ki interface ortak kaldığı sürece birbirlerinden bağımsız bir şekilde gelişmeleri de sağlanmış oluyor.
+
+        Stateless : Server tarafında, client ile ilgili bir context veya Session tutulmaz. Client tarafından yapılan her request Server'ın response verebilmesi için gerekli bilgiyi taşır, yani her türlü state client tarafında tutulur, ihtiyaç duyulursa request içerisinde server'a bildirilir. Bu Scalability açısından da önemlidir, çünkü server'ın requestler arasında herhangi bir state'i saklamasını gereksiz kılar ve kaynak yönetimini kolaylaştırır. Visibility açısından önemlidir, çünkü request'in amacını anlamak için tek bir request'in içerdiği bilgiler yeterlidir. 
+ 
+        Tabi stateless olmasının bazı dezavantajlarıda var. Client her request'de gerekli bilgileri eklemek zorundadır bu da network trafiğini arttırır. Bu ayrıca server'ın uygulamanın davranışlarındaki tutarlığı kontrol etmesini zorlaştırır, çünkü birçok farklı client'dan farklı içerikli requestler gelebilir, server'a validasyon açısından daha fazla yük binebilir.
+
+        Uniform Interface : Client-Server'lar arasında Ortak, tekbiçimli arayüzlerin olması REST'in en önemli prensiplerinden biridir. Bu hem iletişim yöntemini basitleştiriyor hem de ortak bir interface olması sayesinde her parçanın birbirinden bağımsız bir şekilde evrimleşmesine olanak sağlıyor. Bu konu daha önce bahsettiğim HTTP Methodları ilede alakalı.
+ 
+        Bununla ilgili çok güzel bir örnek var, yukarıda LEGO'dan bahsetmiştim. LEGO ile oynayanlar bilirler, birbirinden farklı LEGO parçaları olsa da, onları birleştirmenin sadece birkaç yolu vardır, herhangi bir alışveriş mağzasından aldığınız yeni LEGO parçası, elinizdeki parçalarla kolay bir şekilde entegre olur, çünkü zaten standartları önceden tanımlanmıştır. Aklınıza LEGO parçalarının birbirlerine bağlamanın bukadar az yolu varken ortaya büyük şeyler çıkabilir mi gibisinden bir soru gelebilir. 
+
+        Layered System : Burada kast edilen aslında client'ın son server'a mı yoksa bir aracı server'a mı bağlandığını bilmiyor olması, yani her katman aslında tek bir katmanı biliyor. Bu tür bir yapıya olanak sağlamasıyla birlekte, aracı serverlar load-balancing yaparak scalability arttırabiliyor ve client'ları belli security policy'lerine zorlayabiliyorlar. Bu yapı ayrıca encapsulation yapılması gereken yerlerde de kullanılabiliyorlar.
+
+        Code on Demand : Server belli durumlar'da client tarafındaki fonksiyonaliteyi arttırmak veya değiştirmek için, client tarafına executable scriptler gönderebilir. Böyle bir kullanım bazı durumlarda Visibility'i düşürdüğü için, Code on Demand tek opsiyonel kısıttır.
+ 
+        Eğer bir servis Code on demand kısıtı hariç diğer kısıtları içermiyorsa tam olarak RESTful servis değildir. Bu kısıtların çoğu, bugünün modern programlama ortramlarında endişe edilmesi veya uygulanması zor kısıtlar değiller. Ayrıca bu kısıtların çoğu bize yabancı gelen kavramlar değiller, çoğumuz kendi mimarilerimizde de kullanmışızdır. Bence zaten en dikkat edilmesi gereken kısıt REST'in Stateless olması. REST'in hedefledikleri aslında ; Scalability, Simplicity, Modifiability, Visibility, Portability ve Reliability. Yukarıdaki kısıtlara ne kadar uyarsanız, hedeflediklerini o kadar gerçekleştirmiş olursunuz.
+
+        Resource ve URI
+
+        REST mimarisinin kalbinde Resouce kavramı yatmaktadır. Resource kavramı REST'e özel bir kavram değil, halihazırda Web Browser'larda kullanmaktayız. Resource'lar herşey olabilir, entity, item veya dışarıya açmak istediğiniz herhangi birşey. REST resource'larını URI üzerinden tanımlar, SOAP'daki gibi "GetProductName", "GetProductPrice" gibi method'lar veya servisler üzerinden iletişim kurulmaz. Mesela ;
+ 
+        REST'deki en önemli konulardan biride HTTP Method'ların nasıl kullanılması gerektiği mevzuu.
+        
+        Öncelikle Idempotent kavramından bahsedilim. Matematik ve bilgisayar biliminde bir fonksiyonun bir defa uygulanması ile birden fazla defa uygulanması, sonucu değiştirmiyor ise bu fonksiyon Idempotent'dir. HTTP methodları arasında GET, PUT, DELETE Idempotent methodlardır. POST değildir.
+        Bugün aslında GET ve POST her işimizi görüyor. Peki neden POST yerine PUT ve ya silmek için ayriyetten DELETE methodlarına da kullanmamız gerekiyor. Bunun birkaç sebebi olmasına rağmen bu sebeplerin hiç biri bizi PUT ve DELETE kullanmak zorunda bırakan sebepler değil. Ama REST'in tek amacı data'ya en basit şekilde ulaşmak değildir, REST aynı zamanda data'ya anlamlı bir şekilde ulaşma metadolojisidir, bir request'e baktığınız zaman onun ne iş yaptığını anlamanız önemlidir. Ayrıca idempotency kavramıda bu noktada önemli. Akla ilk gelicek sorulardan biri POST mu? PUT mu? ;
+        PUT ve POST arasındaki kavramsal farktan daha öncede bahsettik, PUT idempotent bir method, yani aynı Resource'a yaptığınız aynı PUT request'ini bir veya birden fazla defa yapmanız sonuç açısından birşey fark etmez, fakat POST aynı şey değil, o yüzden browserlar bizi POST yapılan bir yerde refresh, back gibi şeyler yaptığımızda uyarır, çünkü server'da ilgili resource'un state'i değişebilir. Tamam uygulamayı biz yazıyoruz, requestleri karşılayan bizleriz, POST'un da aynı davranışını sergilmesini sağlayabiliriz fakat client açısından mesela browserlar açısından PUT ve POST arasında çok fark var. Uniform Interface kısıtında da aslında kast edilen bu. 
+        Demek istediğim create işlemlerinde PUT kullanın değil, kafanız karışmasın, tam anlamıyla gerektiği yerde kullanmak lazım. Mesela ;
+        HTTP/1.1 PUT /DataStorage/Pictures/deniz.jpg
+        ...
+
+        <deniz.jpg'in içeriği ... >
+ 
+        Şeklinde bir request ile deniz.jpg adında bir resource'u server'da yaratıyoruz, bu request'i 100 kere de göndersek fark etmez çünkü hep deniz.jpg'yi gönderiyoruz. Bütün content'i aynı spesifik bir Resource'a gönderiyoruz. Fakat ;
+ 
+   HTTP/1.1 POST /DataStorage/Pictures
+   ...
+
+   <?xml version="1.0" encoding="UTF-8"?> 
+   <DataStorage operation="add" type="jpeg">
+     <[CDATA[ <herhangi bir resmin içeriği > ]]>
+   </DataStorage>
+ 
+    Farklı anladınız mı? Eğer bu request'i birden fazla tekrarlarsak, aynı content'e sahip 2 adet resim server tarafında oluşur. POST'un gücü ve tehlikesi de bu, POST ile herşeyi yapabilirsiniz, Create,Delete,Update herşeyi.
+    Mesela tekrar bir örnek verelim. Bir forum siteniz var ve bir başlığın altına yorum eklemek istiyoruz, ilgili alanları doldurduktan sonra POST ederiz, çünkü bu aşamada bize PUT'daki gibi HTTP 200 (No error, operation successful.) response'u yetmez, çünkü aynı zamanda bir resource'da değişiklik yapıyoruz ve yaptığımız değişikliği görmek isteriz, o yüzden ASP.NET'de Postback kavramı vardır.
+    Aslında özetle şunu demek istiyorum ;
+    Create = Eğer spesifik bir Resource'un bütün bir içeriğini gönderiyorsanız PUT kullanın.
+    Create = Eğer server'a spesifik bir Resource'a bağlı olan içerik gönderiyorsanız POST kullanın.
+    Retrieve = GET.
+    Update =  Eğer spesifik bir Resource'un bütün bir içeriğini gönderiyorsanız PUT kullanın.
+    Update =  Eğer spesifik bir Resource'a bağlı bir veya birden fazla içerik değiştiriyorsanız POST kullanın.
+    DELETE = Delete
+
+
+        REST Mimarisinde Security
+
+    REST, SOAP veya RPC'de ki gibi hazır bir security yapısıyla gelmiyor, aslında bir security yapısıda dayatmıyor. Yine de kullanabileceğiniz bir çok yöntem söz konusu.
+    REST'in HTTP protokolünü kullandığından bahsetmiştik, HTTP'nin de kendine has Authentication mekanizmaları var, bunları kullanmamız açısından hiç bir engel yok. Mesela bunlardan en popüleri Basic Access Authentication. Kullanması çok kolay, fakat kesinlikle HTTPS ile beraber kullanılması gerekiyor, çünkü şifreyi plain-text olarak gönderiyor, HTTPS ile kullandığımız zaman encrypted olarak gönderebiliyoruz.
+    Diğer alternatifimiz ise Digest Authentication, bu da HTTP'nin Authentication mekanizmalarından birisi. Bu mimaride şifre plain-text olarak gönderilmek yerine, data'nın o şifre ile hash'i alınır öyle gönderilir. Server gelen datanın hash'ini aynı şifre tekrar alır ve hashleri karşılaştırır böylece datanın valid bir yerden gelip gelmediğini anlar. Tabi buradaki en önemli nokta client ile server'ın şifreyi bilmesi gerekliliği ki server'da aynı şifre ile hash alıp karşılaştırma yapabilsin.
+    Olaylar şu şekilde gelişiyor, client server'a bir request'de bulunuyor ve server 401 (“Unauthorized”) response'unu döndürür. Client bu cevabı aldıktan sonra bunun Authorization gerektiren bir request olduğunu anlar ve request'in Header'ına Authorization datasını gömer (Hash'li data), server bu sefer istenilen yanıtı verir. Basic Access Authentication'dan daha güvenli bir yöntem olsa da hala brute force gibi saldırılara açıktır ayrıca bütün server ve browser'lar tarafından desteklenmemektedir.
+    Tabi tek seçeneğimiz HTTP'nin bize sağladığı güvenlik mekanizmaları değil hata günümüzde çoğunlukla RESTful servislerde HMAC (Hash Message Authentication Code) yöntemini kullanılıyor. Aslında bu costum bir yapı, digest'deki gibi “Authorization” header üzerinden security bilgilerini yolluyoruz. Olay şu ;
+    Server client'a bir şekilde userId ve secret key sağlıyor. Nasıl sağladığının hiç bir önemi yok, bu konuyu araştırken en çok bu noktaya takılmıştım, siz takılmayın. Yani adam bir şekilde bir yere user id ile kayıt olur oradan alır veya email ile kendisine gelir veya normal postayla Smile. Önemli olan Server'ın Client'a bu bilgiyi sağlamış olması ve kendi tarafında user ile ilişkili olarak bu key'i tutuyor olması.
+    Client bu aşamadan sonra bütün requestlerini bu userid ve key ile imzalayıp öyle gönderirir. Burada dikkat edilmesi gereken nokta Server'ın Client'a request'in hangi kısımınlarını, hangi algoritma ile imzalayacağını bildirmesi gerekliliği. Çünkü client her request'de kendisine verilen algoritmayla HMAC Hash'ini üretip, userid'si ile beraber “Authorization” header'ına gömmeli. 
+    Authorization: dirgin:uBMfGaLjue+TSDygYB5aEg==
+    Server request'i aldıktan sonra “Authorization” header'ı alıp split eder ve gelen userid'nin kendi tarafında kayıtlı olan key'ini bulur, ardından request'deki ilgili alanların HMAC Hash'ini bu key ile tekrar alır ve kendisine gelen Hash ile karşılaştırır. Eğer hash'ler aynıysa kullanıcının yetkili bir kullanıcı olduğu anlaşılıp doğru response dönülür.
+    HMAC yaklaşımı Basic Access Authentication ve Digest Authentication'a göre daha etkili bir yaklaşım verilen key random ve yeterince uzunsa brute force saldırılarına karşıda etkili. Ayrıca paranoyak olmanızı gerektiren bir durum varsa kullanıclara verilen keylerin belli bir süre sonra expire olmasını sağlayabilirsiniz böylece kullanıcı belli aralıklarla yeniden bir key edinmek durumunda kalır. Bu yaklaşım RESTful servislerde en çok kullanılan yaklaşım.
+
+
+       Rest & SOAP
+
+        SOAP (Simple Object Access Protocol) uygulamalar ile web servislerin bilgi aktarımını sağlayan XML tabanlı bir protokoldür. Yani web servise giden bilgi XML olarak gönderilir, web servis bu bilgiyi yorumlar ve sonucunu XML olarak geri döndürür. SOAP tabanlı bir web servisin, gönderilen XML verisini nasıl yorumlayacağının tanımlanması gerekir. Bu web servis tanımlaması WSDL standardı ile yapılır.
+
+        REST mimarisinde ise işlemler resource kavramıyla yapılır. Resource URI ile tanımlanır ve bir metod tanımlaması veya bir değişken olabilir. Yani REST’te SOAP’ta olduğu gibi XML yardımıyla metodlar çağırılmaz bunun yerine o metodu çağıracak URIler ile web servise HTTP protokolüyle istek yapılır. Böylece REST için WSDL gibi bir tanımlama diline ihtiyaç kalmaz işlemler tamamen HTTP metodları üzerinden yapılır. Örneğin, bir web servisin metodunu SOAP ile “getProductName” şeklinde çağırırken REST ile “/products/name/1″ URI’si ile çağırabiliriz. Ayrıca RESTin döndürdüğü veri tipinin de XML olması zorunlu değildir JSON, XML, TXT, HTML gibi istenen veri türünde değer döndürülebilir.
+
+
+        REST-SOAP Avantajları
+
+        1)SOAP XML veri tipini desteklerken REST istenen veri türüyle işlem yapabilir. JSON veri tipi ile XML’den çok daha düşük boyutlarla veri tutulabildiği için REST ile daha hızlı işlem yapılabilir.
+        2)Ayrıca SOAP için WSDL ile tanımlama yapmak gerekirken REST için böyle bir zorunluluk yoktur. (WADL REST için kullanılan WSDL’e benzer bir yapıdır fakat kullanma zorunluluğu yoktur.) Bir dile ihtiyaç duymadan HTTP metodlarıyla tasarlanabildiği için REST’i kullanması ve tasarlaması daha kolaydır.
+        3)SOAP için birçok geliştirme aracı mevcuttur, REST için geliştirme araçlarına ihtiyaç duyulmaz, tasarlaması kolaydır.
+        4)SOAP; XML-Scheme kullanırken REST; URI-scheme kullanır yani metotlar için URI’ler tanımlanır.
+        5)Her ikisi de HTTP protokolünü kullanırlar. Fakat REST için HTTP zorunluluğu varken SOAP; TCP, SMTP gibi başka protokollerle de çalışabilir.
+        6)Test ve hata ayıklama aşaması REST için daha kolaydır. Çünkü HTTP hatalarını döndürür ve bunlar bir toola ihtiyaç duyulmadan görülebilir. SOAP için hata ayıklama araçları gerekebilir.
+        7)REST basit HTTP GET metodunu kullandığı için cacheleme işlemi daha kolaydır. SOAP ile cacheleme yapabilmek için karmaşık XML requestleri yapılmalıdır.
+        8)İkisi de HTTPS destekler, SOAP için WS-SECURITY adlı bir eklenti mevcuttur.
+        9)Güvenlik açısından SOAP daha gelişmiştir çünkü hazır yapılar bulunmaktadır.
+        10)Dokümantasyon bakımından SOAP daha gelişmiştir ve daha fazla kaynak bulunmaktadır.
+
+
+        HTTP STATUS CODE :
+        
+        tarayıcıdan web server ' a bir servis isteği gönderildiğinde, hata meydana gelmesi mühtemeldir. Aşağıdaki kodlar HTTP durum kodları olarak client a gönderilebilir.
+
+        Aşaağıda genelde karşılaşılan status kodlara değinilecektir.
+
+        1xx: Information
+
+        100 Continue : Sunucuyu request header alınmış ve istemci request body işlemek için göndermesi gerektiği durumunda oluşan bilgilendirme kodu
+
+        2xx: Successful
+
+        200 OK : başarılı HTTP isteklerinde oluşan başarı durum mesajı
+        201 Created : sunucuda yeni bir kaynak oluşturulduğunda gönderilen başarı durum mesajı
+        202 Accepted : sunucu gelen isteği kabul etti fakat işlem henuz tamamlanmadığında gönderilen başarı durum mesajı
+        204 No Content	istek başarılı bir şekilde işlendi fakat her hangi bir içerik döndürülmedi 
+
+        3xx: Redirection
+
+        301 Moved Permanently	isteğin yapıldığı sayfa başka bir url taşınmış
+        303 See Other	sayfaya yapılan istek başka urller altında da bulunabilir.
+        302 Found	istek yapılan kaynak geçici olarak yeni bir url'e taşındı
+
+        4xx: Client Error
+
+        400 Bad Request	istek yapılan kaynak URL de yazım hatası olabilir.
+        401 Unauthorized istek yapılan kayanağa erişim yetkisi yok
+        404 Not Found	istek yapılan kaynak bulunamadı
+        405 Method Not Allowed	istek yapılan kaynak metod erişimini desteklemiyor (get,post)
+        410 Gone	istek yapılan kaynağa erişilemiyor. şuan erişim dışı. aslında kaynak var ama kaynağa erişimde sıkıntı söz konusu
+        414 Request-URI Too Long istek yapılan kayanağa ait URI çok uzun olduğundan istek kabul edilmedi.
+
+        415 Unsupported Media Type sunucu kaynağa yapılan isteği kabul etmiyor çünki desteklenen media format tipi bulunamadı xml olrak dışarı açılmış bir uri ye json formatter da ulaşırken alabileceğimiz bir hata
+
+        5xx: Server Error
+
+        500 Internal Server Error sunucuda bir exception hata oluştu. Genelde run-time da alınan hatalarda dönen bir sunucu durum hata mesajı
+
+        511 Network Authentication Required	kullanıcılar ağ üzerinden kimlik doğrulaması yapmalıdır.
+
+        503 Service Unavailable	sunucu down olmuş.
+
+        505 HTTP Version Not Supported : sunucu HTTP protocol versiyonunu desteklemiyor.
+
+        HTTP Methodları
+
+        Method	Description
+        HEAD	Get isteği gibi çalışır fakat sadece HTTP Header bilgisi taşır, content yok 
+        PUT	    Varolan bir URI'deki veri yüklemek amaçlı kullanılır. UPDATE GET İşlemi
+        DELETE	belirtilmiş bir kaynağı sunucundan kaldırır
+        OPTIONS	Sunucu tarafından izin verilen HTTP methodların bilgisini verir
+        CONNECT TCP/IP 	Converts the request connection to a transparent TCP/IP tunnel
