@@ -57,9 +57,9 @@ namespace RestFullAPI
                     Description = "Restfull API",
                     Contact = new OpenApiContact()
                     {
-                        Email = "barkin.bayzin@bilgeadam.com",
-                        Name = "Barkın Bayzin",
-                        Url = new Uri("https://github.com/BarkinBayzin"),
+                        Email = "naz.kaptan@bilgeadam.com",
+                        Name = "naz kaptan",
+                        Url = new Uri("https://github.com/nazkaptan"),
                     },
                     License = new OpenApiLicense()
                     {
